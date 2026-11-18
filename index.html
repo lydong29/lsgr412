@@ -1,0 +1,525 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lịch Sử 12 - Thử Thách Đúng/Sai: Giai Đoạn 1969 - 1975</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Be Vietnam Pro', sans-serif;
+            background-color: #faf8f5;
+            color: #1e293b;
+        }
+        .hero-pattern {
+            background-color: #7f1d1d;
+            background-image: radial-gradient(circle at 20% 20%, rgba(217, 119, 6, 0.25) 0%, transparent 50%),
+                              radial-gradient(circle at 80% 80%, rgba(153, 27, 27, 0.8) 0%, transparent 50%);
+        }
+        .radio-btn:checked + label {
+            transform: scale(1.03);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
+        .radio-true:checked + label {
+            background-color: #059669;
+            color: white;
+            border-color: #059669;
+        }
+        .radio-false:checked + label {
+            background-color: #e11d48;
+            color: white;
+            border-color: #e11d48;
+        }
+        .timeline-dot {
+            box-shadow: 0 0 0 4px #fef3c7;
+        }
+        @keyframes pulse-soft {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.02); }
+        }
+        .animate-pulse-soft {
+            animation: pulse-soft 2.5s infinite;
+        }
+    </style>
+</head>
+<body class="antialiased pb-16">
+
+    <!-- Top Progress Bar -->
+    <div class="fixed top-0 left-0 w-full h-1.5 bg-amber-100 z-50">
+        <div id="progressBar" class="h-full bg-gradient-to-r from-red-700 via-amber-500 to-emerald-600 transition-all duration-300" style="width: 0%"></div>
+    </div>
+
+    <!-- Hero Header -->
+    <header class="hero-pattern text-white pt-12 pb-16 px-4 sm:px-6 lg:px-8 shadow-lg relative overflow-hidden">
+        <div class="max-w-4xl mx-auto relative z-10 text-center">
+            <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-amber-500/20 border border-amber-400/40 text-amber-200 text-xs sm:text-sm font-semibold tracking-wide uppercase mb-4">
+                <span>★ Lịch Sử 12 • Kết Nối Tri Thức ★</span>
+            </div>
+            <h1 class="text-3xl sm:text-4xl md:text-5xl font-extrabold tracking-tight leading-tight mb-4">
+                Bài 8: Kháng Chiến Chống Mỹ, Cứu Nước
+            </h1>
+            <p class="text-lg sm:text-xl text-amber-100/90 font-medium max-w-2xl mx-auto">
+                Mục 2: Các giai đoạn phát triển chính • Phần d (1969–1973) & Phần e (1973–1975)
+            </p>
+            
+            <!-- Timeline Badges -->
+            <div class="mt-8 flex flex-wrap justify-center gap-3 sm:gap-6 text-xs sm:text-sm">
+                <div class="flex items-center gap-2 bg-white/10 backdrop-blur-sm px-4 py-2 rounded-xl border border-white/15">
+                    <span class="w-2.5 h-2.5 rounded-full bg-amber-400"></span>
+                    <span>1969–1973: Đánh bại "Việt Nam hóa chiến tranh"</span>
+                </div>
+                <div class="flex items-center gap-2 bg-white/10 backdrop-blur-sm px-4 py-2 rounded-xl border border-white/15">
+                    <span class="w-2.5 h-2.5 rounded-full bg-emerald-400"></span>
+                    <span>1973–1975: Tổng tiến công & Toàn thắng</span>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Container -->
+    <main class="max-w-4xl mx-auto px-4 sm:px-6 -mt-8 relative z-20">
+        
+        <!-- Control & Stats Bar -->
+        <div class="bg-white rounded-2xl shadow-md border border-stone-200/80 p-4 sm:p-5 mb-8 flex flex-col sm:flex-row items-center justify-between gap-4">
+            <div class="flex items-center gap-3">
+                <div class="w-10 h-10 rounded-xl bg-red-50 text-red-700 flex items-center justify-center font-bold text-lg border border-red-100">
+                    5
+                </div>
+                <div>
+                    <h2 class="font-bold text-slate-800 text-sm sm:text-base">Cấu trúc đề thi chuẩn mới</h2>
+                    <p class="text-xs text-slate-500">5 câu hỏi nhận định • 20 ý trắc nghiệm Đúng / Sai</p>
+                </div>
+            </div>
+            <div class="flex items-center gap-4 w-full sm:w-auto justify-between sm:justify-end">
+                <div class="text-right">
+                    <span class="text-xs text-slate-500 block">Tiến độ hoàn thành</span>
+                    <span id="progressText" class="font-bold text-red-700 text-sm">0 / 20 ý</span>
+                </div>
+                <button type="button" id="resetTopBtn" class="px-3.5 py-2 text-xs font-semibold text-slate-600 bg-slate-100 hover:bg-slate-200 rounded-xl transition cursor-pointer">
+                    ↺ Làm lại
+                </button>
+            </div>
+        </div>
+
+        <!-- Quiz Container -->
+        <form id="quizForm" class="space-y-8">
+            
+            <!-- CÂU 1 -->
+            <div class="question-card bg-white rounded-2xl shadow-sm border border-stone-200 overflow-hidden transition-all duration-300 hover:shadow-md">
+                <div class="bg-gradient-to-r from-amber-50 to-orange-50/60 px-6 py-4 border-b border-amber-100 flex flex-wrap items-center justify-between gap-2">
+                    <div class="flex items-center gap-2.5">
+                        <span class="px-3 py-1 rounded-lg bg-red-700 text-white font-bold text-sm">Câu 1</span>
+                        <span class="text-xs font-semibold uppercase tracking-wider text-amber-800 bg-amber-200/60 px-2.5 py-1 rounded-md">Phần d • Giai đoạn 1969 – 1973</span>
+                    </div>
+                    <span class="text-xs text-slate-500 font-medium">Chủ đề: Chiến lược "Việt Nam hóa chiến tranh"</span>
+                </div>
+                
+                <div class="p-6">
+                    <div class="p-4 rounded-xl bg-stone-50 border-l-4 border-red-700 text-slate-800 font-medium leading-relaxed mb-6">
+                        “Trong giai đoạn 1969 – 1973, chiến lược ‘Việt Nam hóa chiến tranh’ của Mỹ ở miền Nam thực chất là quá trình rút dần quân Mỹ về nước nhưng vẫn duy trì, tăng cường lực lượng quân đội Sài Gòn và sự yểm trợ bằng hỏa lực, không quân, hải quân Mỹ.”
+                    </div>
+
+                    <div class="space-y-3.5" id="q1-options"></div>
+                </div>
+            </div>
+
+            <!-- CÂU 2 -->
+            <div class="question-card bg-white rounded-2xl shadow-sm border border-stone-200 overflow-hidden transition-all duration-300 hover:shadow-md">
+                <div class="bg-gradient-to-r from-amber-50 to-orange-50/60 px-6 py-4 border-b border-amber-100 flex flex-wrap items-center justify-between gap-2">
+                    <div class="flex items-center gap-2.5">
+                        <span class="px-3 py-1 rounded-lg bg-red-700 text-white font-bold text-sm">Câu 2</span>
+                        <span class="text-xs font-semibold uppercase tracking-wider text-amber-800 bg-amber-200/60 px-2.5 py-1 rounded-md">Phần d • Giai đoạn 1969 – 1973</span>
+                    </div>
+                    <span class="text-xs text-slate-500 font-medium">Chủ đề: Tiến công chiến lược 1972</span>
+                </div>
+                
+                <div class="p-6">
+                    <div class="p-4 rounded-xl bg-stone-50 border-l-4 border-red-700 text-slate-800 font-medium leading-relaxed mb-6">
+                        “Cuộc Tiến công chiến lược năm 1972 của quân dân ta ở miền Nam đã giáng một đòn nặng nề vào chiến lược ‘Việt Nam hóa chiến tranh’, buộc Mỹ phải ký Hiệp định Pa-ri về chấm dứt chiến tranh, lập lại hòa bình ở Việt Nam.”
+                    </div>
+
+                    <div class="space-y-3.5" id="q2-options"></div>
+                </div>
+            </div>
+
+            <!-- CÂU 3 -->
+            <div class="question-card bg-white rounded-2xl shadow-sm border border-stone-200 overflow-hidden transition-all duration-300 hover:shadow-md">
+                <div class="bg-gradient-to-r from-red-50 to-amber-50 px-6 py-4 border-b border-red-100 flex flex-wrap items-center justify-between gap-2">
+                    <div class="flex items-center gap-2.5">
+                        <span class="px-3 py-1 rounded-lg bg-red-700 text-white font-bold text-sm">Câu 3</span>
+                        <span class="text-xs font-semibold uppercase tracking-wider text-red-800 bg-red-200/60 px-2.5 py-1 rounded-md">Bản lề d & e • Hiệp định Pa-ri 1973</span>
+                    </div>
+                    <span class="text-xs text-slate-500 font-medium">Chủ đề: Ý nghĩa Hiệp định Pa-ri</span>
+                </div>
+                
+                <div class="p-6">
+                    <div class="p-4 rounded-xl bg-stone-50 border-l-4 border-amber-600 text-slate-800 font-medium leading-relaxed mb-6">
+                        “Hiệp định Pa-ri năm 1973 về Việt Nam đánh dấu mốc quan trọng khi Mỹ và các nước cam kết tôn trọng độc lập, chủ quyền, thống nhất và toàn vẹn lãnh thổ của Việt Nam, đồng thời buộc Mỹ phải rút hết quân viễn chinh và quân chư hầu về nước.”
+                    </div>
+
+                    <div class="space-y-3.5" id="q3-options"></div>
+                </div>
+            </div>
+
+            <!-- CÂU 4 -->
+            <div class="question-card bg-white rounded-2xl shadow-sm border border-stone-200 overflow-hidden transition-all duration-300 hover:shadow-md">
+                <div class="bg-gradient-to-r from-emerald-50 to-teal-50/60 px-6 py-4 border-b border-emerald-100 flex flex-wrap items-center justify-between gap-2">
+                    <div class="flex items-center gap-2.5">
+                        <span class="px-3 py-1 rounded-lg bg-emerald-700 text-white font-bold text-sm">Câu 4</span>
+                        <span class="text-xs font-semibold uppercase tracking-wider text-emerald-800 bg-emerald-200/60 px-2.5 py-1 rounded-md">Phần e • Giai đoạn 1973 – 1975</span>
+                    </div>
+                    <span class="text-xs text-slate-500 font-medium">Chủ đề: Thời cơ chiến lược 1975</span>
+                </div>
+                
+                <div class="p-6">
+                    <div class="p-4 rounded-xl bg-stone-50 border-l-4 border-emerald-700 text-slate-800 font-medium leading-relaxed mb-6">
+                        “Bước sang giai đoạn 1973 – 1975, tương quan lực lượng ở chiến trường miền Nam đã thay đổi có lợi cho ta, đặc biệt sau thắng lợi của chiến dịch Tây Nguyên và chiến dịch Huế – Đà Nẵng, Bộ Chính trị Trung ương Đảng đã hạ quyết tâm giải phóng hoàn toàn miền Nam trước mùa mưa năm 1975.”
+                    </div>
+
+                    <div class="space-y-3.5" id="q4-options"></div>
+                </div>
+            </div>
+
+            <!-- CÂU 5 -->
+            <div class="question-card bg-white rounded-2xl shadow-sm border border-stone-200 overflow-hidden transition-all duration-300 hover:shadow-md">
+                <div class="bg-gradient-to-r from-emerald-50 to-teal-50/60 px-6 py-4 border-b border-emerald-100 flex flex-wrap items-center justify-between gap-2">
+                    <div class="flex items-center gap-2.5">
+                        <span class="px-3 py-1 rounded-lg bg-emerald-700 text-white font-bold text-sm">Câu 5</span>
+                        <span class="text-xs font-semibold uppercase tracking-wider text-emerald-800 bg-emerald-200/60 px-2.5 py-1 rounded-md">Phần e • Giai đoạn 1973 – 1975</span>
+                    </div>
+                    <span class="text-xs text-slate-500 font-medium">Chủ đề: Chiến dịch Hồ Chí Minh lịch sử</span>
+                </div>
+                
+                <div class="p-6">
+                    <div class="p-4 rounded-xl bg-stone-50 border-l-4 border-emerald-700 text-slate-800 font-medium leading-relaxed mb-6">
+                        “Đỉnh cao của giai đoạn 1973 – 1975 là Chiến dịch Hồ Chí Minh lịch sử (từ ngày 26 đến 30-4-1975), kết thúc bằng việc xe tăng ta tiến vào Dinh Độc Lập, buộc Tổng thống Dương Văn Minh phải đầu hàng không điều kiện, hoàn thành sự nghiệp giải phóng miền Nam, thống nhất đất nước.”
+                    </div>
+
+                    <div class="space-y-3.5" id="q5-options"></div>
+                </div>
+            </div>
+
+            <!-- Action Section -->
+            <div class="pt-4 flex flex-col items-center">
+                <button type="button" id="submitBtn" class="w-full sm:w-auto px-10 py-4 bg-gradient-to-r from-red-700 to-red-800 hover:from-red-800 hover:to-red-900 text-white font-bold text-base sm:text-lg rounded-2xl shadow-lg hover:shadow-xl transition-all duration-200 transform hover:-translate-y-0.5 cursor-pointer flex items-center justify-center gap-2.5">
+                    <span>Nộp Bài & Chấm Điểm Chi Tiết</span>
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                </button>
+            </div>
+        </form>
+
+        <!-- Result Dashboard -->
+        <div id="resultDashboard" class="hidden mt-10 bg-white rounded-3xl shadow-xl border border-amber-200 overflow-hidden">
+            <div class="hero-pattern p-6 sm:p-8 text-white text-center">
+                <span class="inline-block px-3 py-1 rounded-full bg-white/15 text-amber-200 text-xs font-bold uppercase tracking-wider mb-2">Kết Quả Đánh Giá</span>
+                <h3 class="text-2xl sm:text-3xl font-extrabold" id="resultTitle">Hoàn Thành Xuất Sắc!</h3>
+                <p class="text-amber-100/90 text-sm mt-1" id="resultSubtitle">Bạn đã nắm rất vững kiến thức giai đoạn 1969 – 1975.</p>
+            </div>
+            
+            <div class="p-6 sm:p-8">
+                <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-6">
+                    <div class="bg-stone-50 p-4 rounded-2xl border border-stone-200 text-center">
+                        <span class="text-xs font-semibold text-slate-500 uppercase">Số ý chính xác</span>
+                        <div class="text-3xl font-extrabold text-emerald-600 mt-1" id="scoreStatements">0 / 20</div>
+                    </div>
+                    <div class="bg-stone-50 p-4 rounded-2xl border border-stone-200 text-center">
+                        <span class="text-xs font-semibold text-slate-500 uppercase">Điểm thang 10</span>
+                        <div class="text-3xl font-extrabold text-red-700 mt-1" id="scoreTen">0.0</div>
+                    </div>
+                    <div class="bg-stone-50 p-4 rounded-2xl border border-stone-200 text-center">
+                        <span class="text-xs font-semibold text-slate-500 uppercase">Điểm chuẩn TN THPT</span>
+                        <div class="text-3xl font-extrabold text-amber-600 mt-1" id="scoreExam">0.00 / 5.0</div>
+                        <span class="text-[11px] text-slate-400 block mt-0.5">(1 ý: 0.1 • 2 ý: 0.25 • 3 ý: 0.5 • 4 ý: 1.0)</span>
+                    </div>
+                </div>
+
+                <div class="flex flex-wrap justify-center gap-3">
+                    <button type="button" id="retryBtn" class="px-6 py-3 bg-amber-500 hover:bg-amber-600 text-white font-bold rounded-xl shadow transition cursor-pointer">
+                        ↺ Luyện tập lại từ đầu
+                    </button>
+                    <button type="button" id="scrollTopBtn" class="px-6 py-3 bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold rounded-xl transition cursor-pointer">
+                        ↑ Xem lại từng câu
+                    </button>
+                </div>
+            </div>
+        </div>
+
+    </main>
+
+    <script>
+        const quizData = {
+            q1: [
+                {
+                    id: 'a',
+                    text: 'Chiến lược này nhằm mục tiêu "dùng người Việt đánh người Việt" với sự hỗ trợ về tài chính, vũ khí và cố vấn của Mỹ.',
+                    correct: true,
+                    explain: 'Đúng. Bản chất của "Việt Nam hóa chiến tranh" là tận dụng xương máu người Việt để giảm xương máu người Mỹ trên chiến trường.'
+                },
+                {
+                    id: 'b',
+                    text: 'Đây là chiến lược do chính quyền Sài Gòn tự hoạch định mà không có sự tham gia hay chỉ đạo nào của Mỹ.',
+                    correct: false,
+                    explain: 'Sai. Chiến lược này do Tổng thống Mỹ R. Ních-xơn đề ra và chỉ huy thông qua hệ thống cố vấn Mỹ.'
+                },
+                {
+                    id: 'c',
+                    text: 'Mặc dù rút dần quân viễn chinh Mỹ, đế quốc Mỹ vẫn âm mưu duy trì ách thống trị thực dân mới tại miền Nam Việt Nam.',
+                    correct: true,
+                    explain: 'Đúng. Mỹ rút quân để xoa dịu dư luận trong nước nhưng vẫn giữ mục tiêu cốt lõi là áp đặt chủ nghĩa thực dân mới ở miền Nam.'
+                },
+                {
+                    id: 'd',
+                    text: 'Trong giai đoạn này, Mỹ đã chấm dứt hoàn toàn mọi hoạt động quân sự và rút hết quân đội ra khỏi Việt Nam ngay từ năm 1969.',
+                    correct: false,
+                    explain: 'Sai. Mỹ chỉ rút dần từng bước và thực tế còn mở rộng chiến tranh sang Campuchia (1970) và Lào (1971).'
+                }
+            ],
+            q2: [
+                {
+                    id: 'a',
+                    text: 'Cuộc Tiến công chiến lược năm 1972 đã chọc thủng 3 phòng tuyến mạnh nhất của địch (Quảng Trị, Tây Nguyên, Đông Nam Bộ), làm phá sản một bước quan trọng chiến lược "Việt Nam hóa chiến tranh".',
+                    correct: true,
+                    explain: 'Đúng. Thắng lợi này buộc Mỹ phải tuyên bố "Mỹ hóa" trở lại cuộc chiến tranh (tức thừa nhận sự thất bại của "Việt Nam hóa").'
+                },
+                {
+                    id: 'b',
+                    text: 'Cuộc Tiến công chiến lược năm 1972 diễn ra ở miền Bắc và chỉ nhằm bảo vệ biên giới phía Bắc chứ không tác động đến chiến trường miền Nam.',
+                    correct: false,
+                    explain: 'Sai. Đây là cuộc tiến công quy mô lớn của quân dân ta trên khắp chiến trường miền Nam, lấy Quảng Trị làm hướng tiến công chủ yếu.'
+                },
+                {
+                    id: 'c',
+                    text: 'Thắng lợi quân sự trên chiến trường năm 1972 kết hợp với thắng lợi của trận "Điện Biên Phủ trên không" ở miền Bắc đã buộc Mỹ phải ký kết Hiệp định Pa-ri (1973).',
+                    correct: true,
+                    explain: 'Đúng. Thắng lợi trên cả hai miền Nam – Bắc đã đánh bại hoàn toàn ý chí xâm lược của Mỹ, buộc Mỹ phải ký Hiệp định Pa-ri.'
+                },
+                {
+                    id: 'd',
+                    text: 'Hiệp định Pa-ri được ký kết hoàn toàn do sức ép từ Liên hợp quốc chứ không liên quan đến tình hình chiến sự ở Việt Nam năm 1972.',
+                    correct: false,
+                    explain: 'Sai. Thắng lợi trên chiến trường giữ vai trò quyết định buộc Mỹ phải nhượng bộ trên bàn đàm phán Pa-ri.'
+                }
+            ],
+            q3: [
+                {
+                    id: 'a',
+                    text: 'Hiệp định Pa-ri buộc Mỹ phải rút hết quân viễn chinh Mỹ và quân các nước đồng minh ra khỏi miền Nam Việt Nam.',
+                    correct: true,
+                    explain: 'Đúng. Điều khoản quan trọng bậc nhất của Hiệp định Pa-ri là Mỹ phải chấm dứt mọi hoạt động quân sự và rút hết quân về nước trong vòng 60 ngày.'
+                },
+                {
+                    id: 'b',
+                    text: 'Hiệp định Pa-ri cho phép quân đội Mỹ tiếp tục đồn trú hợp pháp lâu dài tại miền Nam Việt Nam để hỗ trợ chính quyền Sài Gòn.',
+                    correct: false,
+                    explain: 'Sai. Hiệp định buộc Mỹ phải rút toàn bộ quân đội, nhân viên quân sự và hủy bỏ các căn cứ quân sự của Mỹ ở miền Nam.'
+                },
+                {
+                    id: 'c',
+                    text: 'Việc Mỹ rút quân đã làm thay đổi so sánh lực lượng trên chiến trường theo hướng có lợi cho cách mạng, tạo điều kiện để ta "đánh cho ngụy nhào".',
+                    correct: true,
+                    explain: 'Đúng. Khi chỗ dựa quân sự trực tiếp của chính quyền Sài Gòn là quân Mỹ rút đi, quân dân ta có thời cơ thuận lợi tiến lên giải phóng hoàn toàn miền Nam.'
+                },
+                {
+                    id: 'd',
+                    text: 'Hiệp định Pa-ri chỉ giải quyết vấn đề chiến tranh giữa Mỹ và Liên Xô, không có bất kỳ điều khoản nào công nhận các quyền dân tộc cơ bản của Việt Nam.',
+                    correct: false,
+                    explain: 'Sai. Điều 1 của Hiệp định khẳng định rõ: Hoa Kỳ và các nước khác tôn trọng độc lập, chủ quyền, thống nhất và toàn vẹn lãnh thổ của Việt Nam.'
+                }
+            ],
+            q4: [
+                {
+                    id: 'a',
+                    text: 'Sau khi Hiệp định Pa-ri được ký kết, chính quyền Sài Gòn được Mỹ hậu thuẫn đã liên tục phá hoại hiệp định, tiến hành các chiến dịch "tràn ngập lãnh thổ", buộc ta phải kiên quyết đánh trả.',
+                    correct: true,
+                    explain: 'Đúng. Hội nghị Trung ương 21 (7-1973) đã xác định rõ con đường cách mạng miền Nam là bạo lực cách mạng, kiên quyết đánh trả địch để bảo vệ vùng giải phóng.'
+                },
+                {
+                    id: 'b',
+                    text: 'Tương quan lực lượng giai đoạn 1973 – 1975 nghiêng hẳn về phía quân đội Sài Gòn nhờ nguồn viện trợ quân sự không giới hạn từ Mỹ.',
+                    correct: false,
+                    explain: 'Sai. Sau khi rút quân, viện trợ của Mỹ cho chính quyền Sài Gòn bị cắt giảm mạnh, tinh thần quân đội Sài Gòn suy sụp, trong khi lực lượng của ta lớn mạnh vượt bậc.'
+                },
+                {
+                    id: 'c',
+                    text: 'Thắng lợi vang dội của chiến dịch Tây Nguyên và chiến dịch Huế – Đà Nẵng (tháng 3-1975) đã chuyển cuộc kháng chiến sang giai đoạn tổng tiến công chiến lược trên toàn miền Nam.',
+                    correct: true,
+                    explain: 'Đúng. Hai chiến dịch này đã đập tan hệ thống phòng thủ của địch ở miền Trung và Tây Nguyên, tạo thời cơ chiến lược để Bộ Chính trị hạ quyết tâm giải phóng Sài Gòn.'
+                },
+                {
+                    id: 'd',
+                    text: 'Kế hoạch giải phóng miền Nam của Bộ Chính trị ban đầu dự kiến kéo dài đến tận năm 1980 và thực tế cũng không thể hoàn thành trong năm 1975.',
+                    correct: false,
+                    explain: 'Sai. Ban đầu Bộ Chính trị đề ra kế hoạch 2 năm (1975 – 1976), nhưng trước thời cơ thuận lợi đã kịp thời bổ sung quyết tâm giải phóng miền Nam ngay trong năm 1975 (trước mùa mưa).'
+                }
+            ],
+            q5: [
+                {
+                    id: 'a',
+                    text: 'Chiến dịch Hồ Chí Minh là trận quyết chiến chiến lược cuối cùng, đập tan toàn bộ bộ máy chính quyền và quân đội Sài Gòn.',
+                    correct: true,
+                    explain: 'Đúng. Chiến dịch diễn ra thần tốc với 5 cánh quân tiến vào giải phóng Sài Gòn – Gia Định, trung tâm đầu não cuối cùng của địch.'
+                },
+                {
+                    id: 'b',
+                    text: 'Chiến dịch Hồ Chí Minh chỉ tiến công ở khu vực nông thôn, trong khi nội đô Sài Gòn được giải phóng hoàn toàn thông qua đàm phán hòa bình.',
+                    correct: false,
+                    explain: 'Sai. Các binh đoàn chủ lực của ta đã tiến công áp đảo trực tiếp vào nội đô Sài Gòn, đánh chiếm các mục tiêu then chốt buộc địch phải đầu hàng vô điều kiện.'
+                },
+                {
+                    id: 'c',
+                    text: 'Sự kiện ngày 30-4-1975 đã kết thúc thắng lợi cuộc kháng chiến chống Mỹ, cứu nước, mở ra kỷ nguyên độc lập, thống nhất và đi lên chủ nghĩa xã hội cho cả nước.',
+                    correct: true,
+                    explain: 'Đúng. Đây là mốc son chói lọi hoàn thành cuộc cách mạng dân tộc dân chủ nhân dân trên phạm vi cả nước.'
+                },
+                {
+                    id: 'd',
+                    text: 'Cuộc kháng chiến chống Mỹ kết thúc bằng việc duy trì hai chính quyền song song tồn tại lâu dài ở hai miền Nam – Bắc.',
+                    correct: false,
+                    explain: 'Sai. Chính quyền Sài Gòn sụp đổ hoàn toàn, non sông thu về một mối, đất nước hoàn toàn thống nhất.'
+                }
+            ]
+        };
+
+        function renderQuiz() {
+            Object.keys(quizData).forEach((qKey, qIndex) => {
+                const container = document.getElementById(`${qKey}-options`);
+                container.innerHTML = '';
+                
+                quizData[qKey].forEach((item) => {
+                    const inputName = `${qKey}_${item.id}`;
+                    const div = document.createElement('div');
+                    div.className = 'statement-box p-4 rounded-xl border border-slate-200 bg-white transition-all duration-200';
+                    div.id = `box_${inputName}`;
+                    
+                    div.innerHTML = `
+                        <div class="flex flex-col md:flex-row md:items-center justify-between gap-4">
+                            <p class="text-sm sm:text-[15px] text-slate-700 leading-relaxed flex-1">
+                                <span class="font-bold text-slate-900 mr-1">${item.id})</span> ${item.text}
+                            </p>
+                            <div class="flex items-center gap-2.5 shrink-0">
+                                <div>
+                                    <input type="radio" id="${inputName}_true" name="${inputName}" value="true" class="hidden radio-btn radio-true" onchange="updateProgress()">
+                                    <label for="${inputName}_true" class="inline-flex items-center justify-center px-4 py-2 rounded-lg border border-slate-300 text-xs sm:text-sm font-bold text-slate-600 cursor-pointer hover:bg-emerald-50 hover:border-emerald-300 transition select-none">
+                                        Đúng
+                                    </label>
+                                </div>
+                                <div>
+                                    <input type="radio" id="${inputName}_false" name="${inputName}" value="false" class="hidden radio-btn radio-false" onchange="updateProgress()">
+                                    <label for="${inputName}_false" class="inline-flex items-center justify-center px-4 py-2 rounded-lg border border-slate-300 text-xs sm:text-sm font-bold text-slate-600 cursor-pointer hover:bg-rose-50 hover:border-rose-300 transition select-none">
+                                        Sai
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                        <div id="feedback_${inputName}" class="hidden mt-3 pt-3 border-t border-dashed text-xs sm:text-sm leading-relaxed"></div>
+                    `;
+                    container.appendChild(div);
+                });
+            });
+        }
+
+        function updateProgress() {
+            let answered = 0;
+            Object.keys(quizData).forEach((qKey) => {
+                quizData[qKey].forEach((item) => {
+                    const checked = document.querySelector(`input[name="${qKey}_${item.id}"]:checked`);
+                    if (checked) answered++;
+                });
+            });
+            const percent = (answered / 20) * 100;
+            document.getElementById('progressBar').style.width = `${percent}%`;
+            document.getElementById('progressText').textContent = `${answered} / 20 ý`;
+        }
+
+        function calculateExamScore(correctInQuestion) {
+            // Thang điểm chuẩn Bộ GD&ĐT cho câu hỏi Đúng/Sai 4 ý:
+            // 1 ý: 0.1đ | 2 ý: 0.25đ | 3 ý: 0.5đ | 4 ý: 1.0đ
+            if (correctInQuestion === 1) return 0.1;
+            if (correctInQuestion === 2) return 0.25;
+            if (correctInQuestion === 3) return 0.5;
+            if (correctInQuestion === 4) return 1.0;
+            return 0;
+        }
+
+        document.getElementById('submitBtn').addEventListener('click', () => {
+            let totalCorrectStatements = 0;
+            let totalExamScore = 0;
+
+            Object.keys(quizData).forEach((qKey) => {
+                let correctInThisQuestion = 0;
+
+                quizData[qKey].forEach((item) => {
+                    const inputName = `${qKey}_${item.id}`;
+                    const selected = document.querySelector(`input[name="${inputName}"]:checked`);
+                    const box = document.getElementById(`box_${inputName}`);
+                    const feedback = document.getElementById(`feedback_${inputName}`);
+                    
+                    feedback.classList.remove('hidden');
+                    box.classList.remove('border-slate-200', 'border-emerald-400', 'bg-emerald-50/40', 'border-rose-400', 'bg-rose-50/40', 'border-amber-400', 'bg-amber-50/40');
+
+                    if (!selected) {
+                        box.classList.add('border-amber-400', 'bg-amber-50/40');
+                        feedback.className = 'mt-3 pt-3 border-t border-amber-200 text-xs sm:text-sm text-amber-800';
+                        feedback.innerHTML = `<span class="font-bold">⚠️ Chưa chọn đáp án!</span> Đáp án đúng là <strong>${item.correct ? 'ĐÚNG' : 'SAI'}</strong>. ${item.explain}`;
+                    } else {
+                        const userVal = selected.value === 'true';
+                        if (userVal === item.correct) {
+                            totalCorrectStatements++;
+                            correctInThisQuestion++;
+                            box.classList.add('border-emerald-400', 'bg-emerald-50/40');
+                            feedback.className = 'mt-3 pt-3 border-t border-emerald-200 text-xs sm:text-sm text-emerald-800';
+                            feedback.innerHTML = `<span class="font-bold">✓ Chính xác!</span> ${item.explain}`;
+                        } else {
+                            box.classList.add('border-rose-400', 'bg-rose-50/40');
+                            feedback.className = 'mt-3 pt-3 border-t border-rose-200 text-xs sm:text-sm text-rose-800';
+                            feedback.innerHTML = `<span class="font-bold">✕ Chưa chính xác!</span> Đáp án đúng là <strong>${item.correct ? 'ĐÚNG' : 'SAI'}</strong>. ${item.explain}`;
+                        }
+                    }
+                });
+
+                totalExamScore += calculateExamScore(correctInThisQuestion);
+            });
+
+            const tenScale = ((totalCorrectStatements / 20) * 10).toFixed(1);
+            document.getElementById('scoreStatements').textContent = `${totalCorrectStatements} / 20`;
+            document.getElementById('scoreTen').textContent = `${tenScale} đ`;
+            document.getElementById('scoreExam').textContent = `${totalExamScore.toFixed(2)} / 5.0 đ`;
+
+            const titleEl = document.getElementById('resultTitle');
+            const subEl = document.getElementById('resultSubtitle');
+            if (totalCorrectStatements >= 18) {
+                titleEl.textContent = "Xuất Sắc! Đỉnh Cao Sử Học 🏆";
+                subEl.textContent = "Bạn đã làm chủ hoàn toàn kiến thức giai đoạn 1969 – 1975!";
+            } else if (totalCorrectStatements >= 14) {
+                titleEl.textContent = "Rất Tốt! Nền Tảng Vững Vàng 👏";
+                subEl.textContent = "Chỉ còn một vài chi tiết nhỏ nữa là đạt điểm tuyệt đối.";
+            } else {
+                titleEl.textContent = "Cố Gắng Lên Nhé! 💪";
+                subEl.textContent = "Hãy đọc kỹ phần giải thích bên dưới từng câu để ghi nhớ sâu hơn.";
+            }
+
+            const dashboard = document.getElementById('resultDashboard');
+            dashboard.classList.remove('hidden');
+            dashboard.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        });
+
+        function resetAll() {
+            renderQuiz();
+            updateProgress();
+            document.getElementById('resultDashboard').classList.add('hidden');
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        document.getElementById('resetTopBtn').addEventListener('click', resetAll);
+        document.getElementById('retryBtn').addEventListener('click', resetAll);
+        document.getElementById('scrollTopBtn').addEventListener('click', () => {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+
+        // Init
+        renderQuiz();
+    </script>
+</body>
+</html>
+Đã xử lý và phân tích bằng mã
